@@ -44,6 +44,23 @@
         .modal p { color: #5b687a; line-height: 1.75; font-size: 15px; margin-bottom: 18px; }
         .modal-actions { display: grid; gap: 10px; }
         .modal-actions .btn { width: 100%; }
+
+        .guide-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 18px; }
+        .guide-card { background: rgba(255,255,255,.9); border: 1px solid #dbe2eb; border-radius: 14px; padding: 19px; }
+        .guide-card h3 { color: var(--navy); font-size: 17px; margin-bottom: 9px; }
+        .guide-card p, .guide-card li { color: #506075; font-size: 14px; line-height: 1.75; }
+        .guide-card ol, .guide-card ul { padding-left: 20px; }
+        .guide-card li + li { margin-top: 4px; }
+        .step-list { counter-reset: guide-step; list-style: none; padding: 0 !important; }
+        .step-list li { counter-increment: guide-step; position: relative; padding-left: 37px; }
+        .step-list li::before { content: counter(guide-step); position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: var(--gold); text-align: center; line-height: 24px; font-weight: 700; }
+        .notice { margin-top: 14px; padding: 13px 15px; border-left: 4px solid var(--gold); border-radius: 8px; background: #f8f5ed; color: #5a4a2c; font-size: 14px; line-height: 1.7; }
+        .faq { margin-top: 18px; }
+        .faq details { background: rgba(255,255,255,.88); border: 1px solid #dbe2eb; border-radius: 10px; padding: 13px 15px; }
+        .faq details + details { margin-top: 9px; }
+        .faq summary { cursor: pointer; color: var(--navy); font-weight: 700; }
+        .faq p { color: #506075; font-size: 14px; line-height: 1.7; margin-top: 8px; }
+        @media (max-width: 620px) { .guide-grid { grid-template-columns: 1fr; } }
         @media (max-width: 620px) { .btn-group { grid-template-columns: 1fr; } .download-card { padding: 24px 16px 18px; } .features { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -92,6 +109,149 @@
                 <li>管理員題庫與帳戶管理</li>
             </ul>
         </section>
+
+        <section class="section">
+            <h2>系統完整介紹</h2>
+            <p>線上題測系統是一套以 Firebase 為資料基礎的線上評量平台，讓使用者透過瀏覽器或行動裝置進行題庫測驗。系統支援帳號登入、公開題庫、題庫密碼、測驗時間、選擇題、手寫計算題、測驗結果、歷史紀錄與管理員權限控制。</p>
+            <p style="margin-top:10px;">系統的網頁版、Android 版與未來的 iOS 版本使用同一套測驗資料與帳號驗證邏輯。一般使用者只需要從官方入口進入；管理員則可在管理面板管理帳戶、公開題庫、答題次數、驗證碼及問題回報。</p>
+            <div class="notice"><strong>資料與權限說明：</strong>登入狀態、帳號狀態、題庫公開設定、答題次數與測驗紀錄由 Firebase 保存。若帳號被管理員停用，系統會阻止一般測驗功能，僅保留申訴流程。</div>
+        </section>
+
+        <section class="section">
+            <h2>第一次使用：一般使用者操作教學</h2>
+            <div class="guide-grid">
+                <article class="guide-card">
+                    <h3>一、進入系統與註冊</h3>
+                    <ol class="step-list">
+                        <li>在下載頁點選「網頁版進入」；Android 使用者也可以先下載 App。</li>
+                        <li>輸入電子郵件、密碼與考生姓名。</li>
+                        <li>閱讀並勾選使用條款、免責聲明與資料授權。</li>
+                        <li>按下註冊／登入按鈕，等待系統完成 Firebase 驗證。</li>
+                        <li>若設備曾註冊過帳號，系統會要求管理員設定的重複註冊驗證碼。</li>
+                    </ol>
+                </article>
+                <article class="guide-card">
+                    <h3>二、登入與帳號管理</h3>
+                    <ol class="step-list">
+                        <li>已註冊使用者輸入電子郵件與密碼後登入。</li>
+                        <li>登入成功後，系統會載入公開題庫與個人資料。</li>
+                        <li>從上方「選單」進入帳號管理，可查看信箱、姓名、識別碼與測驗總次數。</li>
+                        <li>如果姓名未被管理員鎖定，可在帳號管理中心修改姓名。</li>
+                        <li>使用完畢請從選單執行登出，並依系統要求輸入設備登出許可碼。</li>
+                    </ol>
+                </article>
+                <article class="guide-card">
+                    <h3>三、選擇題庫與進入測驗</h3>
+                    <ol class="step-list">
+                        <li>在測驗首頁查看管理員公開的題庫列表，或輸入題庫代碼。</li>
+                        <li>點選題庫後，若設定密碼，先輸入題庫密碼。</li>
+                        <li>確認題庫名稱、題庫代碼與測驗資訊。</li>
+                        <li>閱讀進入提示後選擇確認進入；未操作時依頁面倒數自動進入。</li>
+                        <li>若題庫有答題次數限制，系統會在進入前檢查目前剩餘次數。</li>
+                    </ol>
+                </article>
+                <article class="guide-card">
+                    <h3>四、作答與提交</h3>
+                    <ol class="step-list">
+                        <li>選擇題點選答案；手寫計算題使用畫布書寫完整計算過程與答案。</li>
+                        <li>使用上一題／下一題按鈕切換題目，系統會保留目前作答內容。</li>
+                        <li>留意頁面上的剩餘時間，時間到期時系統可能會自動提交。</li>
+                        <li>全部完成後按「提交作答」，再確認提交內容。</li>
+                        <li>手寫題送出後會顯示 AI 批改狀態；若 AI 暫時無法使用，依頁面提示改由人工批改。</li>
+                    </ol>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>測驗結果與答題次數</h2>
+            <div class="guide-grid">
+                <article class="guide-card"><h3>結果報告</h3><p>提交後可查看科目名稱、測驗次數、得分、答對與答錯題數、未作答題數、每題作答內容、標準答案與手寫題批改結果。若系統提供 PDF 功能，也可從結果頁下載報告。</p></article>
+                <article class="guide-card"><h3>時間限定</h3><p>每日次數依台北時間每日 00:00 重置。當日次數用完時，系統會提示當日答題次數已用完，請等待隔日 00:00 後再試。</p></article>
+                <article class="guide-card"><h3>全域限定</h3><p>每個帳號有永久總次數上限。次數用完後，題庫會顯示鎖定狀態，再次點選時會提示該題庫答題次數已用盡。</p></article>
+                <article class="guide-card"><h3>不設限與個別覆寫</h3><p>不設限題庫不顯示鎖定提示。管理員也可針對特定帳號與特定題庫設定每日次數、全域次數或不受限制，個別設定優先於題庫一般設定。</p></article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>管理員完整操作教學</h2>
+            <div class="guide-grid">
+                <article class="guide-card">
+                    <h3>帳戶管理</h3>
+                    <ul>
+                        <li>從選單進入「管理面板」。</li>
+                        <li>選擇一般使用者後，可停用或恢復帳號。</li>
+                        <li>停用帳號時填寫原因，使用者登入後會受到限制。</li>
+                        <li>管理員可查看使用者歷史成績。</li>
+                        <li>可強制修改姓名並鎖定姓名，避免使用者自行變更。</li>
+                    </ul>
+                </article>
+                <article class="guide-card">
+                    <h3>驗證碼與安全設定</h3>
+                    <ul>
+                        <li>設定重複註冊驗證碼，控制同一設備再次註冊。</li>
+                        <li>設定設備登出許可碼，保護登出與設備狀態管理。</li>
+                        <li>請避免把管理員驗證碼公開在一般公告或題庫內。</li>
+                        <li>修改重要驗證碼後，建議通知需要使用的管理人員。</li>
+                    </ul>
+                </article>
+                <article class="guide-card">
+                    <h3>題庫公開與密碼</h3>
+                    <ul>
+                        <li>輸入或從題庫代碼選單選擇題庫，按「檢查狀態」。</li>
+                        <li>確認題庫名稱與代碼正確後，勾選公開於首頁列表。</li>
+                        <li>需要限制使用者時設定題庫密碼。</li>
+                        <li>取消公開後，題庫不會出現在一般使用者的公開列表。</li>
+                    </ul>
+                </article>
+                <article class="guide-card">
+                    <h3>答題次數管理</h3>
+                    <ul>
+                        <li>選擇時間限定、全域限定或不設限。</li>
+                        <li>時間限定會在台北時間 00:00 自動刷新。</li>
+                        <li>全域限定會累計每個帳號的永久答題次數。</li>
+                        <li>可為特定使用者與特定題庫設定獨立次數或不受限制。</li>
+                        <li>設定後可由公開題庫鎖定狀態確認效果。</li>
+                    </ul>
+                </article>
+                <article class="guide-card">
+                    <h3>反饋與申訴審核</h3>
+                    <ul>
+                        <li>從管理員快捷控制或選單進入回饋／申訴區。</li>
+                        <li>查看一般使用者問題、停用帳號申訴與提交時間。</li>
+                        <li>可回覆、標記已處理或刪除回報。</li>
+                        <li>審核通過後可恢復符合條件的使用者帳號。</li>
+                    </ul>
+                </article>
+                <article class="guide-card">
+                    <h3>App 管理員快捷控制</h3>
+                    <ul>
+                        <li>管理員登入後，App 底部會出現快捷控制列。</li>
+                        <li>可快速前往管理面板、帳戶管理、題庫管理與回饋審核。</li>
+                        <li>非管理員不會看到快捷控制列。</li>
+                        <li>快捷列只呼叫原本網頁管理函式，不會繞過 Firebase 權限。</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>手機使用方式</h2>
+            <div class="guide-grid">
+                <article class="guide-card"><h3>Android</h3><p>點選「安卓下載」取得 APK。首次安裝若系統詢問未知來源，請依手機安全設定允許瀏覽器或檔案管理員安裝，完成後從 App 開啟線上題測系統。</p></article>
+                <article class="guide-card"><h3>iPhone／iPad</h3><p>Apple 專用軟體尚未完成開發，請點「網頁版進入」。在 Safari 開啟後，點分享按鈕，選擇「加入主畫面」，即可像 App 一樣從主畫面使用。</p></article>
+            </div>
+            <div class="notice"><strong>重要提醒：</strong>iOS 網頁不能自動替使用者加入主畫面，也不能直接繞過 Apple 簽署限制；請依 Safari 的「分享 → 加入主畫面」完成設定。</div>
+        </section>
+
+        <section class="section faq">
+            <h2>常見問題</h2>
+            <details><summary>重新整理後需要重新登入嗎？</summary><p>正常情況下系統會依 Firebase 登入狀態與瀏覽器儲存資料恢復登入。若清除了網站資料、使用無痕模式或 Firebase 工作階段過期，才可能需要重新登入。</p></details>
+            <details><summary>為什麼題庫按鈕出現鎖定？</summary><p>可能是題庫答題次數已用完、每日次數尚未重置，或管理員針對你的帳號設定了個別限制。時間限定請等待台北時間隔日 00:00。</p></details>
+            <details><summary>手寫題一直顯示批改中怎麼辦？</summary><p>先確認網路連線與 AI 服務是否可用；若頁面顯示 AI 暫時無法批改，請保留結果頁內容，交由教師或管理員人工確認。</p></details>
+            <details><summary>帳號被停用後還能做什麼？</summary><p>停用帳號不能進行一般測驗，但可進入申訴流程，填寫恢復原因並查看管理員回覆。</p></details>
+        </section>
+
         <footer>線上題測系統｜請使用官方入口進入</footer>
     </main>
 
